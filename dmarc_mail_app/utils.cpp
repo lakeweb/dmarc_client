@@ -180,7 +180,7 @@ retarg_type pop3_session(const session_params& params) {
         std::cout << cmd << " : " << resp.substr(4);
         return resp.substr(4);
     };
-    //setup
+    //log on to the server and get email 'LIST'
     retarg_type retstr;
     std::vector<std::string> start_up =
     { {"USER " + params.user},{"PASS " + params.password},{"LIST"} };
@@ -191,8 +191,12 @@ retarg_type pop3_session(const session_params& params) {
         }
     //the list
     std::string& list = *retstr;
-    list += sock.read_until("\n");
-    list += sock.read_until("\n");
+    for (;;) {
+        list += sock.read_until("\n");
+        if (sock.last_read_size < sock.buf_size)
+            break;
+    }
+//    list += sock.read_until("\n");
     //the size of the LIST
     auto list_size = std::atoi(list.data());
 

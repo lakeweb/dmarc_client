@@ -5,6 +5,8 @@
 struct socket_session {
     boost::asio::io_service io;
     boost::asio::ip::tcp::socket socket;
+    size_t last_read_size = 0;
+    const size_t buf_size = 512;
 
     socket_session(const std::string& server, size_t port) :socket(io) {
         boost::asio::ip::tcp::resolver resolver(io);
@@ -32,8 +34,9 @@ struct socket_session {
         return buffer_to_string(response);
     }
     std::string read_until(const char* until) {
-        boost::asio::streambuf response(512);
+        boost::asio::streambuf response(buf_size);
         boost::asio::read_until(socket, response, "\r\n");
+        last_read_size = response.size();
         return buffer_to_string(response);
     }
     std::string read_all() {
@@ -112,7 +115,6 @@ namespace parsers {
 }
 
 //zlib ...............
-#include <c:/cpp/zlib/zlib.h>
 struct zas_file {
     std::string filename;
     std::string comments;

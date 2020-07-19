@@ -8,3 +8,8 @@ git commit -m "Removed folder from repository"
 git push origin master
 
 https://stackoverflow.com/questions/1143796/remove-a-file-from-a-git-repository-without-deleting-it-from-the-local-filesyste/1143800#1143800
+
+https://rtyley.github.io/bfg-repo-cleaner/
+
+/////// the md editor
+https://dillinger.io/
