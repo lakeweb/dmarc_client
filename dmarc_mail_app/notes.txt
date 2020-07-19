@@ -1,0 +1,10 @@
+
+
+#this will update the local to remove new .gitignore updates
+git rm -r --cached File-or-FolderName
+git commit -m "Removed folder from repository"
+
+//you don't have to use this, as you are logged in with VS, just commit in VS
+git push origin master
+
+https://stackoverflow.com/questions/1143796/remove-a-file-from-a-git-repository-without-deleting-it-from-the-local-filesyste/1143800#1143800
